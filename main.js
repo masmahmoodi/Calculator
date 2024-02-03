@@ -25,12 +25,15 @@ function calculateExpression(expression) {
   return res;
 }
 
+let isResultDisplayed = false;
+
 buttonArray.forEach(button => {
   button.addEventListener('click', (e) => {
     const targetValue = e.target.innerHTML;
 
     if (targetValue === '=') {
       screenDisplay.value = calculateExpression(result);
+      isResultDisplayed = true;
     } else if (targetValue === 'AC') {
       result = "";
       screenDisplay.value = result;
@@ -38,15 +41,16 @@ buttonArray.forEach(button => {
       result = result.substring(0, result.length - 1);
       screenDisplay.value = result;
     } else {
+      if (isResultDisplayed) {
+        result = screenDisplay.value;
+        isResultDisplayed = false;
+      }
       result += targetValue;
       screenDisplay.value = result;
     }
   });
 })
 
-them.addEventListener('click',()=>{
-   background.classList.toggle('them-color');
+them.addEventListener('click', () => {
+  background.classList.toggle('them-color');
 })
-
-
-
